@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="audios">
+            <audio id="background-music" src="" loop></audio>
+            <audio id="button-click" src="assets/audio/sfx/mouse-click-290204.mp3"></audio>
+            <audio id="loading" src="assets/audio/jazz-bossa-nova-163669.mp3" loop></audio>
+            <audio id="0" src="assets/audio/sfx/8-bit-video-game-lose-sound-version-1-145828.mp3" ></audio>
+            <audio id="1" src="assets/audio/sfx/8-bit-wrong-2-84407.mp3" ></audio>
+            <audio id="2" src="assets/audio/sfx/8-bit-explosion-11-340459.mp3" ></audio>
+            <audio id="3" src="assets/audio/sfx/8-bit-laser-151672.mp3" ></audio>
+            <audio id="4" src="assets/audio/sfx/gamestart-272829.mp3" ></audio>
+        </div>
+        <div class="background">
+            <h1 class="title">LOVE CALCULATOR</h1>
+            <div class="content">
+                <img class="robot" id="robot" src="./assets/robot_normal.png" alt="Robot Image">
+                <div class="right-content">
+                    <div class="form-container">
+                        <form id="nameinput">
+                            <label for="name1">YOUR NAME:</label>
+                            <input type="text" id="name1" required>
+                        </form>
+                        <form id="nameinput">
+                            <label for="name2">YOUR CRUSH'S NAME:</label>
+                            <input type="text" id="name2" required>
+                        </form>
+                    </div>
+                    <div class="speech-bubble">
+                        <div class="results">
+                            <div class="left-comment">
+                                <p id="robot-speech">well, what are you waiting for?? are you ready to put your love to the test? ></p>
+                                <button onclick="buttonClick()">CALCULATE</button>
+                            </div>
+                            <div class="percentage">
+                                <img id="heart-image" src="./assets/heart.png" alt="Heart Image">
+                                <p id="result-percent"></p>
+                                <div class="loader" id="loader"></div>
+                            </div>
+                        </div>
+                        <div class="tail"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function buttonClick() {
+            const name1 = document.getElementById('name1').value;
+            const name2 = document.getElementById('name2').value;
+            const resultPercent = document.getElementById('result-percent');
+            const heartImage = document.getElementById('heart-image');
+            const loader = document.getElementById('loader');
+            const robotSpeech = document.getElementById('robot-speech');
+            const robotImage = document.getElementById('robot');
+            const buttonClickAudio = document.getElementById('button-click');
+            buttonClickAudio.play();
+
+            if (name1 && name2) {
+                const loadingTime = Math.floor(Math.random() * 10000) + 10000;
+                resultPercent.textContent = ``;
+                robotSpeech.textContent = "calculating...calculating... calculating... >";
+                robotImage.src = "assets/robot_loading.png";
+                loader.style.visibility = 'visible';
+                const backgroundMusic = document.getElementById('background-music');
+                backgroundMusic.src = "assets/audio/jazz-bossa-nova-163669.mp3";
+                backgroundMusic.play();
+                setTimeout(() => {
+                    const lovePercentage = Math.floor(Math.random() * 101);
+                    console.log(`Love percentage for ${name1} and ${name2}: ${lovePercentage}%`);
+                    loader.style.visibility = 'hidden';
+                    resultPercent.textContent = `${lovePercentage}%`;
+                    resultPercent.visibility = 'visible';
+                    alalyzePercent(lovePercentage);
+                    backgroundMusic.pause();
+                }, loadingTime);
+            } else {
+                robotSpeech.textContent = "ummm... I think you forgot to enter your names -_- >";
+                robotImage.src = "./assets/robot_annoyed.png";
+
+            }
+        }
+        function alalyzePercent(percent) {
+            const robotImage = document.getElementById('robot');
+            const robotSpeech = document.getElementById('robot-speech');
+
+            if (percent < 20) {
+                robotSpeech.textContent = "i think I have more prospects than you. and im a robot lol :P >";
+                robotImage.src = "./assets/robot_0.png";
+                const audio0 = document.getElementById('0');
+                audio0.play();
+            } else if (percent < 40) {
+                robotSpeech.textContent = "maybe if you try really hard? is it really worth the effort >";
+                robotImage.src = "./assets/robot_less50.png";
+                const audio1 = document.getElementById('1');
+                audio1.play();
+            } else if (percent < 60) {
+                robotSpeech.textContent = "hmmph. you could do better. >";
+                robotImage.src = "assets/robot_neutral.png";
+                const audio2 = document.getElementById('2');
+                audio2.play();
+            } else if (percent < 80) {
+                robotSpeech.textContent = "this might be the one... let's not get ahead of ourselves tho >";
+                robotImage.src = "assets/robot_above50.png";
+                const audio3 = document.getElementById('3');
+                audio3.play();
+            } else {
+                robotSpeech.textContent = "so when's the wedding? >";
+                robotImage.src = "assets/robot_90.png";
+                const audio4 = document.getElementById('4');
+                audio4.play();
+            }
+        }
+    </script>
+</body>
+</html>
