@@ -1,2 +1,2 @@
 # love_calculator
-idk what this is tbh... T_T
+Users can caluclate compatability!! Integrating Javascript into webdev with small projects. currently not very responsive.
